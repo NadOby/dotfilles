@@ -15,15 +15,23 @@ export HISTFILESIZE=20000
 #export HISTCONTROL=erasedups
 export HISTCONTROL=ignoreboth
 export VISUAL="vim"
-export GOPATH="$HOME/src/go"
-export PATH=$PATH:~/go/bin
-export GITHUB_HOST=git.ouroath.com
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 shopt -s histappend
+
+################################################################################
+# Aliasese
+
+alias a=alias 
+a ls='ls -G'
+a stmpdat='date +%Y%m%d'
+a stmpdatime='date +%Y%m%d%H%M'
+a ssh='ssh -4 -A'
+a nochkssh='ssh -A -q -o StrictHostKeyChecking=no -o ConnectTimeout=10'
+a config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 ################################################################################
 # Define PROMPT to be nice and colorful
@@ -36,6 +44,14 @@ then
         # shellcheck disable=SC1090
         . "$(brew --prefix)/etc/bash_completion"
     fi
+
+    export GOPATH="$HOME/src/go"
+    export PATH=$PATH:~/go/bin
+    export GITHUB_HOST=git.ouroath.com
+    a git=hub
+    a cdwm='cd ~/work/moneyball'
+    a cdwp='cd ~/work/pinball'
+    a julia='/Applications/JuliaPro-0.6.2.1.app/Contents/Resources/julia/Contents/Resources/julia/bin/julia'
 else
     PS1='\[\033[1;91m\]\u\[\033[1;31m\]@\[\033[1;91m\]\h:\[\033[1;34m\]\w\[\033[0m\]$(parse_git_branch)\$ '
     # enable bash completion in interactive shells
@@ -48,21 +64,6 @@ fi
 ################################################################################
 # Soursing stuff
 
-
-################################################################################
-# Aliasese
-
-alias a=alias 
-a ls='ls -G'
-a stmpdat='date +%Y%m%d'
-a stmpdatime='date +%Y%m%d%H%M'
-a ssh='ssh -4 -A'
-a nochkssh='ssh -A -q -o StrictHostKeyChecking=no -o ConnectTimeout=10'
-a cdwm='cd ~/work/moneyball'
-a cdwp='cd ~/work/pinball'
-a julia='/Applications/JuliaPro-0.6.2.1.app/Contents/Resources/julia/Contents/Resources/julia/bin/julia'
-a git=hub
-a config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 ################################################################################
 # Function definitions
