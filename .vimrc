@@ -53,3 +53,4 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 let g:evervim_devtoken='S=s75:U=7f1416:E=1463d30fecf:C=13ee57fd2d3:P=1cd:A=en-devtoken:V=2:H=60f6da2e54a678a16721461ea7725d70'
 " vim -b : edit binary using xxd-format!
 set gfn=Monospace\ 11
+let g:go_version_warning = 0
