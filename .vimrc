@@ -7,7 +7,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'JuliaLang/julia-vim'
-Plugin 'davidhalter/jedi-vim'
+" Plugin 'davidhalter/jedi-vim'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'tpope/vim-fugitive'
@@ -24,7 +24,9 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set number
+"set spell spelllang=en
 autocmd Filetype yaml setlocal ts=2 sw=2 sts=2 expandtab
+autocmd BufRead scp://* :set bt=acwrite
 set ruler
 set directory-=$HOME/tmp
 set directory^=$HOME/tmp//

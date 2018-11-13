@@ -15,7 +15,15 @@ export HISTFILESIZE=20000
 #export HISTCONTROL=erasedups
 export HISTCONTROL=ignoreboth
 export VISUAL="vim"
+export GOPATH="$HOME/src/go"
+export PATH=~/bin:$PATH:~/go/bin
+export GITHUB_HOST=git.ouroath.com
+# setting for building python under pyenv as framework under macosx 
+export PYTHON_CONFIGURE_OPTS="--enable-framework"
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export HOMEBREW_GITHUB_API_TOKEN="5901a1a81747e706cc0b56bc22035207a1429163"
+################################################################################
+# Shell options
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -45,8 +53,7 @@ export C_GRAY='\e[0;30m'
 export C_L_GRAY='\e[0;37m'
 
 ################################################################################
-# Aliasese
-
+# Aliases global
 alias a=alias 
 a ls='ls -G'
 a stmpdat='date +%Y%m%d'
@@ -56,11 +63,18 @@ a nochkssh='ssh -A -q -o StrictHostKeyChecking=no -o ConnectTimeout=10'
 a config="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 ################################################################################
+# Aliases by hostname
+if [ "$HOSTNAME" == "maharishi" ]
+then
+    a git=hub
+    a cdwm='cd ~/work/moneyball'
+    a cdwp='cd ~/work/pinball'
+    a julia='/Applications/JuliaPro-0.6.2.1.app/Contents/Resources/julia/Contents/Resources/julia/bin/julia'
+fi
+
+################################################################################
 # Define PROMPT to be nice and colorful
 
-parse_git_branch () {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
 
 if [ "$HOSTNAME" == "maharishi" ]
 then
@@ -70,14 +84,6 @@ then
         # shellcheck disable=SC1090
         . "$(brew --prefix)/etc/bash_completion"
     fi
-
-    export GOPATH="$HOME/src/go"
-    export PATH=$PATH:~/go/bin
-    export GITHUB_HOST=git.ouroath.com
-    a git=hub
-    a cdwm='cd ~/work/moneyball'
-    a cdwp='cd ~/work/pinball'
-    a julia='/Applications/JuliaPro-0.6.2.1.app/Contents/Resources/julia/Contents/Resources/julia/bin/julia'
 else
     PS1='\[\033[1;91m\]\u\[\033[1;31m\]@\[\033[1;91m\]\h:\[\033[1;34m\]\w\[\033[0m\]$(parse_git_branch)\$ '
     # enable bash completion in interactive shells
@@ -88,20 +94,43 @@ else
 fi
 
 ################################################################################
+# Dev envs configuration
+eval "$(pyenv init -)"
+
+################################################################################
 # Soursing stuff
 
 
 ################################################################################
 # Function definitions
 
-function title()
-{
+title() {
     echo -en "\\033]0;$*\\a"
 }
 
 myhosts () {
     grep "$1" ~/.hosts
 }
+
+hosto () {
+    if (($# < 1)) ; then
+        echo -ne "\\tUSAGE: hosto [regex]\\n\\n"
+        return 1
+    fi
+    start_cmd="cat $HOME/.ssh/known_hosts "
+    for arg ;do
+        start_cmd="$start_cmd | grep $arg "
+    done
+        
+    eval "$start_cmd" | awk -F ',' '{print $1}'
+    #$start_cmd | awk -F ',' '{print $1}'
+
+}
+
+parse_git_branch () {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
 ################################################################################
 # Bunker
 
