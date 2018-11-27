@@ -21,7 +21,6 @@ export GITHUB_HOST=git.ouroath.com
 # setting for building python under pyenv as framework under macosx 
 export PYTHON_CONFIGURE_OPTS="--enable-framework"
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-export HOMEBREW_GITHUB_API_TOKEN="5901a1a81747e706cc0b56bc22035207a1429163"
 ################################################################################
 # Shell options
 
