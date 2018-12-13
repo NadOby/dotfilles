@@ -1,4 +1,3 @@
-
 # System-wide .bashrc file for interactive bash(1) shells.
 
 # To enable the settings / commands in this file for login shells as well,
@@ -18,10 +17,9 @@ export HISTCONTROL=ignoreboth
 export VISUAL="vim"
 export GOPATH="$HOME/src/go"
 export PATH=~/bin:$PATH:~/go/bin
-export GITHUB_HOST=git.ouroath.com
 # setting for building python under pyenv as framework under macosx 
-export PYTHON_CONFIGURE_OPTS="--enable-framework"
-#export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+#export PYTHON_CONFIGURE_OPTS="--enable-framework"
+
 ################################################################################
 # Shell options
 
@@ -58,30 +56,26 @@ alias a=alias
 a ls='ls -G --color=yes'
 a stmpdat='date +%Y%m%d'
 a stmpdatime='date +%Y%m%d%H%M'
-a ssh='ssh -4 -A'
-a nochkssh='ssh -A -q -o StrictHostKeyChecking=no -o ConnectTimeout=10'
+a nochkssh='ssh -q -o StrictHostKeyChecking=no -o ConnectTimeout=10'
 a config='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
 
 ################################################################################
 # Aliases by hostname
 if [ "$HOSTNAME" == "munchkin" ]
 then
-    a cdwm='cd ~/work/moneyball'
-    a cdwp='cd ~/work/pinball'
+    a cdw='cd ~/work/'
 fi
 
 ################################################################################
 # Define PROMPT to be nice and colorful
-
-
 if [ "$HOSTNAME" == "munchkin" ]
 then
     PS1="\\[$C_L_PURPLE\\]\\D{%F %T} \\[${C_L_GREEN}\\]\\u\\[${C_L_PURPLE}\\]@\\[${C_L_GREEN}\\]\\h:\\[${C_L_BLUE}\\]\\w\\[${C_NC}\\]\$(parse_git_branch)\\n\\$ "
     # enable bash completion in interactive shells
-#    if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
-#        # shellcheck disable=SC1090
-#        . "$(brew --prefix)/etc/bash_completion"
-#    fi
+    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+        # shellcheck disable=SC1091
+        . /etc/bash_completion
+    fi
 else
     PS1='\[\033[1;91m\]\u\[\033[1;31m\]@\[\033[1;91m\]\h:\[\033[1;34m\]\w\[\033[0m\]$(parse_git_branch)\$ '
     # enable bash completion in interactive shells
@@ -97,7 +91,6 @@ fi
 
 ################################################################################
 # Soursing stuff
-
 
 ################################################################################
 # Function definitions
@@ -131,16 +124,3 @@ parse_git_branch () {
 
 ################################################################################
 # Bunker
-
-#PROMPT_COMMAND='history -n; history -a;' 
-# Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#xterm*|rxvt*)
-#    PROMPT_COMMAND='history -n; history -a; echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-#    PROMPT_COMMAND='history -n; history -a;' 
-#    ;;
-#*)
-    #    ;;
-    #esac
-
