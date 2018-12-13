@@ -1,3 +1,4 @@
+
 # System-wide .bashrc file for interactive bash(1) shells.
 
 # To enable the settings / commands in this file for login shells as well,
@@ -54,35 +55,33 @@ export C_L_GRAY='\e[0;37m'
 ################################################################################
 # Aliases global
 alias a=alias 
-a ls='ls -G'
+a ls='ls -G --color=yes'
 a stmpdat='date +%Y%m%d'
 a stmpdatime='date +%Y%m%d%H%M'
 a ssh='ssh -4 -A'
 a nochkssh='ssh -A -q -o StrictHostKeyChecking=no -o ConnectTimeout=10'
-a config="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+a config='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
 
 ################################################################################
 # Aliases by hostname
-if [ "$HOSTNAME" == "maharishi" ]
+if [ "$HOSTNAME" == "munchkin" ]
 then
-    a git=hub
     a cdwm='cd ~/work/moneyball'
     a cdwp='cd ~/work/pinball'
-    a julia='/Applications/JuliaPro-0.6.2.1.app/Contents/Resources/julia/Contents/Resources/julia/bin/julia'
 fi
 
 ################################################################################
 # Define PROMPT to be nice and colorful
 
 
-if [ "$HOSTNAME" == "maharishi" ]
+if [ "$HOSTNAME" == "munchkin" ]
 then
     PS1="\\[$C_L_PURPLE\\]\\D{%F %T} \\[${C_L_GREEN}\\]\\u\\[${C_L_PURPLE}\\]@\\[${C_L_GREEN}\\]\\h:\\[${C_L_BLUE}\\]\\w\\[${C_NC}\\]\$(parse_git_branch)\\n\\$ "
     # enable bash completion in interactive shells
-    if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
-        # shellcheck disable=SC1090
-        . "$(brew --prefix)/etc/bash_completion"
-    fi
+#    if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+#        # shellcheck disable=SC1090
+#        . "$(brew --prefix)/etc/bash_completion"
+#    fi
 else
     PS1='\[\033[1;91m\]\u\[\033[1;31m\]@\[\033[1;91m\]\h:\[\033[1;34m\]\w\[\033[0m\]$(parse_git_branch)\$ '
     # enable bash completion in interactive shells
@@ -94,7 +93,7 @@ fi
 
 ################################################################################
 # Dev envs configuration
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
 
 ################################################################################
 # Soursing stuff
