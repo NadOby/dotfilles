@@ -15,8 +15,9 @@ export HISTFILESIZE=20000
 #export HISTCONTROL=erasedups
 export HISTCONTROL=ignoreboth
 export VISUAL="vim"
-export GOPATH="$HOME/src/go"
-export PATH=~/bin:$PATH:~/go/bin
+export GOROOT=$HOME/src/go
+export GOPATH="$GOROOT/packages"
+export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 # setting for building python under pyenv as framework under macosx 
 #export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
