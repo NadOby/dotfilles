@@ -13,6 +13,7 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'derekwyatt/vim-scala'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'raichoo/purescript-vim'
 call vundle#end()
