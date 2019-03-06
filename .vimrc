@@ -3,20 +3,24 @@ if &cp | set nocp | endif
 syntax on
 " colorscheme molokai
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'JuliaLang/julia-vim'
+" Load vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin('~/.vim/plugged')
+Plug 'JuliaLang/julia-vim'
 " Plugin 'davidhalter/jedi-vim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'tpope/vim-fugitive'
-Plugin 'fatih/vim-go'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'derekwyatt/vim-scala'
+Plug 'elixir-lang/vim-elixir'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'tpope/vim-fugitive'
+Plug 'fatih/vim-go'
+Plug 'vim-syntastic/syntastic'
+Plug 'derekwyatt/vim-scala'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'raichoo/purescript-vim'
-call vundle#end()
+call plug#end()
 filetype plugin indent on
 set backspace=indent,eol,start
 set fileencodings=ucs-bom,utf-8,default,latin1
