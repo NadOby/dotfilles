@@ -17,7 +17,7 @@ export HISTCONTROL=ignoreboth
 export VISUAL="vim"
 export GOROOT=$HOME/src/go
 export GOPATH="$GOROOT/packages"
-export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/bin
 # setting for building python under pyenv as framework under macosx 
 #export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
@@ -62,14 +62,14 @@ a config='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
 
 ################################################################################
 # Aliases by hostname
-if [ "$HOSTNAME" == "munchkin" ]
+if [ "$HOSTNAME" == "oburaak" ]
 then
     a cdw='cd ~/work/'
 fi
 
 ################################################################################
 # Define PROMPT to be nice and colorful
-if [ "$HOSTNAME" == "munchkin" ]
+if [ "$HOSTNAME" == "oburaak" ]
 then
     PS1="\\[$C_L_PURPLE\\]\\D{%F %T} \\[${C_L_GREEN}\\]\\u\\[${C_L_PURPLE}\\]@\\[${C_L_GREEN}\\]\\h:\\[${C_L_BLUE}\\]\\w\\[${C_NC}\\]\$(parse_git_branch)\\n\\$ "
     # enable bash completion in interactive shells
@@ -88,7 +88,11 @@ fi
 
 ################################################################################
 # Dev envs configuration
-#eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 ################################################################################
 # Soursing stuff
