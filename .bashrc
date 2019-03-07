@@ -62,14 +62,14 @@ a config='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
 
 ################################################################################
 # Aliases by hostname
-if [ "$HOSTNAME" == "oburaak" ]
+if [ "$HOSTNAME" == "oburaak" ] || [ "$HOSTNAME" == "munchkin" ]
 then
     a cdw='cd ~/work/'
 fi
 
 ################################################################################
 # Define PROMPT to be nice and colorful
-if [ "$HOSTNAME" == "oburaak" ]
+if [ "$HOSTNAME" == "oburaak" ] || [ "$HOSTNAME" == "munchkin" ]
 then
     PS1="\\[$C_L_PURPLE\\]\\D{%F %T} \\[${C_L_GREEN}\\]\\u\\[${C_L_PURPLE}\\]@\\[${C_L_GREEN}\\]\\h:\\[${C_L_BLUE}\\]\\w\\[${C_NC}\\]\$(parse_git_branch)\\n\\$ "
     # enable bash completion in interactive shells
