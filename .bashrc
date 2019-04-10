@@ -7,16 +7,21 @@
 [ -z "$PS1" ] && return
 
 ################################################################################
+# History management
+# History of the user is synchronised after every enter press
+# History file is cleaned up on every login.
+shopt -s histappend
+export HISTSIZE=20000
+export HISTFILESIZE=20000
+export HISTCONTROL=ignoreboth:erasedups
+export PROMPT_COMMAND="history -n; history -w; history -c; history -r"
+TMPFILE=$(mktemp); tac $HISTFILE | sed -e 's/[[:space:]]*$//' | awk '!x[$0]++' | tac  > ${TMPFILE} ; cat ${TMPFILE} > $HISTFILE ; rm ${TMPFILE}; unset TMPFILE
+
+################################################################################
 # Exports
 
 #OSTYPE=`uname -o`
-export HISTSIZE=20000
-export HISTFILESIZE=20000
-#export HISTCONTROL=erasedups
-export HISTCONTROL=ignoreboth
 export VISUAL="vim"
-export GOROOT=$HOME/src/go
-export GOPATH="$GOROOT/packages"
 export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/bin
 # setting for building python under pyenv as framework under macosx 
 #export PYTHON_CONFIGURE_OPTS="--enable-framework"
@@ -27,7 +32,6 @@ export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/bin
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-shopt -s histappend
 
 ################################################################################
 # Colors
@@ -52,23 +56,19 @@ export C_GRAY='\e[0;30m'
 export C_L_GRAY='\e[0;37m'
 
 ################################################################################
-# Aliases global
+# Aliases 
 alias a=alias 
 a ls='ls -G --color=yes'
 a stmpdat='date +%Y%m%d'
 a stmpdatime='date +%Y%m%d%H%M'
 a nochkssh='ssh -q -o StrictHostKeyChecking=no -o ConnectTimeout=10'
 a config='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
+a cdw='cd ~/work/'
+a cds='cd ~/src/'
+a cdt='cd ~/tmp/'
 
 ################################################################################
-# Aliases by hostname
-if [ "$HOSTNAME" == "oburaak" ]
-then
-    a cdw='cd ~/work/'
-fi
-
-################################################################################
-# Define PROMPT to be nice and colorful
+# Define PROMPT to be nice and colorful by hostname
 if [ "$HOSTNAME" == "oburaak" ]
 then
     PS1="\\[$C_L_PURPLE\\]\\D{%F %T} \\[${C_L_GREEN}\\]\\u\\[${C_L_PURPLE}\\]@\\[${C_L_GREEN}\\]\\h:\\[${C_L_BLUE}\\]\\w\\[${C_NC}\\]\$(parse_git_branch)\\n\\$ "
@@ -88,11 +88,16 @@ fi
 
 ################################################################################
 # Dev envs configuration
+# Python with pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+# Golang
+export GOROOT=$HOME/src/go
+export GOPATH="$GOROOT/packages"
 
 ################################################################################
 # Soursing stuff
@@ -119,7 +124,6 @@ hosto () {
     done
         
     eval "$start_cmd" | awk -F ',' '{print $1}'
-    #$start_cmd | awk -F ',' '{print $1}'
 
 }
 
