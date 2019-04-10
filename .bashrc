@@ -69,7 +69,7 @@ a cdt='cd ~/tmp/'
 
 ################################################################################
 # Define PROMPT to be nice and colorful by hostname
-if [ "$HOSTNAME" == "oburaak" ]
+if [ "$HOSTNAME" == "oburaak" ] || [ "$HOSTNAME" == "munchkin" ]
 then
     PS1="\\[$C_L_PURPLE\\]\\D{%F %T} \\[${C_L_GREEN}\\]\\u\\[${C_L_PURPLE}\\]@\\[${C_L_GREEN}\\]\\h:\\[${C_L_BLUE}\\]\\w\\[${C_NC}\\]\$(parse_git_branch)\\n\\$ "
     # enable bash completion in interactive shells
