@@ -15,7 +15,7 @@ export HISTSIZE=20000
 export HISTFILESIZE=20000
 export HISTCONTROL=ignoreboth:erasedups
 export PROMPT_COMMAND="history -n; history -w; history -c; history -r"
-TMPFILE=$(mktemp); tac $HISTFILE | sed -e 's/[[:space:]]*$//' | awk '!x[$0]++' | tac  > ${TMPFILE} ; cat ${TMPFILE} > $HISTFILE ; rm ${TMPFILE}; unset TMPFILE
+TMPFILE=$(mktemp); tac "${HISTFILE}" | sed -e 's/[[:space:]]*$//' | awk '!x[$0]++' | tac > "${TMPFILE}" ; cat "${TMPFILE}" > "${HISTFILE}" ; rm "${TMPFILE}"; unset TMPFILE
 
 ################################################################################
 # Exports
@@ -62,7 +62,7 @@ a ls='ls -G --color=yes'
 a stmpdat='date +%Y%m%d'
 a stmpdatime='date +%Y%m%d%H%M'
 a nochkssh='ssh -q -o StrictHostKeyChecking=no -o ConnectTimeout=10'
-a config='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
+a config="/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME"
 a cdw='cd ~/work/'
 a cds='cd ~/src/'
 a cdt='cd ~/tmp/'
