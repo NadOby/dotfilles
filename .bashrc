@@ -1,3 +1,4 @@
+#!/bin/bash
 # System-wide .bashrc file for interactive bash(1) shells.
 
 # To enable the settings / commands in this file for login shells as well,
@@ -130,6 +131,34 @@ hosto () {
 parse_git_branch () {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
+
+################################################################################
+# WSL configuration should be set only when running under WSL
+if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null
+then
+    # umask magic
+    if [ "$(umask)" = "0000" ]
+	then
+		umask 022
+	fi
+
+    # Docker is running under Hyperv and acessible by TCP
+    export DOCKER_HOST=tcp://localhost:2375
+    # Some Xserver should be enabled DISPLAY is set for X GUI apps
+    export DISPLAY=:0
+    # To prevent blured fonts on HiDPI displays
+    # https://superuser.com/questions/1370361/blurry-fonts-on-using-windows-default-scaling-with-wsl-gui-applications-hidpi
+    export GDK_SCALE=0.5
+    export GDK_DPI_SCALE=2
+fi
+
+################################################################################
+# NPM installation through NVM
+export NVM_DIR="$HOME/.nvm"
+# shellcheck source=/home/evgeniy/.nvm/nvm.sh
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# shellcheck source=/home/evgeniy/.nvm/bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 ################################################################################
 # Bunker
