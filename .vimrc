@@ -18,6 +18,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'fatih/vim-go'
 Plug 'vim-syntastic/syntastic'
 Plug 'derekwyatt/vim-scala'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'w0rp/ale'
+Plug 'burner/vim-svelte'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'raichoo/purescript-vim'
 call plug#end()
@@ -50,6 +54,10 @@ if &history < 1000
   set history=1000
 endif
 
+let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
+let g:ale_linters = {'svelte': ['stylelint', 'eslint']}
+
+let g:syntastic_sh_shellcheck_args="-x"
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
