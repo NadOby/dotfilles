@@ -19,11 +19,24 @@ export PROMPT_COMMAND="history -n; history -w; history -c; history -r"
 TMPFILE=$(mktemp); tac "${HISTFILE}" | sed -e 's/[[:space:]]*$//' | awk '!x[$0]++' | tac > "${TMPFILE}" ; cat "${TMPFILE}" > "${HISTFILE}" ; rm "${TMPFILE}"; unset TMPFILE
 
 ################################################################################
+# Dev envs configuration
+# Python with pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# Golang
+export GOROOT=$HOME/src/go
+export GOPATH="$GOROOT/packages"
+
+
+################################################################################
 # Exports
 
 #OSTYPE=`uname -o`
 export VISUAL="vim"
-export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/bin
+export PATH="$PYENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
 # setting for building python under pyenv as framework under macosx 
 #export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
@@ -86,19 +99,6 @@ else
         . /etc/bash_completion
     fi
 fi
-
-################################################################################
-# Dev envs configuration
-# Python with pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-# Golang
-export GOROOT=$HOME/src/go
-export GOPATH="$GOROOT/packages"
 
 ################################################################################
 # Soursing stuff
