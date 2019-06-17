@@ -22,9 +22,6 @@ TMPFILE=$(mktemp); tac "${HISTFILE}" | sed -e 's/[[:space:]]*$//' | awk '!x[$0]+
 # Dev envs configuration
 # Python with pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
 
 # Golang
 export GOROOT=$HOME/src/go
@@ -40,6 +37,10 @@ export PATH="$PYENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
 # setting for building python under pyenv as framework under macosx 
 #export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
+# Pyenv initialisation sholuld be done after setting $PATH
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 ################################################################################
 # Shell options
 
