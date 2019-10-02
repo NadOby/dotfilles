@@ -24,7 +24,7 @@ TMPFILE=$(mktemp); tac "${HISTFILE}" | sed -e 's/[[:space:]]*$//' | awk '!x[$0]+
 export PYENV_ROOT="$HOME/.pyenv"
 
 # Golang
-export GOROOT=$HOME/src/go
+export GOROOT=$HOME/.go
 export GOPATH="$GOROOT/packages"
 
 
@@ -163,3 +163,4 @@ export NVM_DIR="$HOME/.nvm"
 
 ################################################################################
 # Bunker
+export TILLER_NAMESPACE=tiller
