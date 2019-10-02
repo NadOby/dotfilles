@@ -37,7 +37,7 @@ set nomodeline
 set number
 set ruler
 
-" Spelling
+" Human languages spellchecking
 set spell spelllang=en
 hi clear SpellBad
 hi SpellBad cterm=underline
@@ -56,20 +56,54 @@ set backupdir-=$HOME/tmp
 set backupdir^=$HOME/tmp//
 
 " Status line configurations
-set statusline=%F
+let g:currentmode={
+            \ 'n'  : 'Normal',
+            \ 'no' : 'Normal·Operator Pending',
+            \ 'v'  : 'Visual',
+            \ 'V'  : 'V·Line',
+            \ '^V' : 'V·Block',
+            \ 's'  : 'Select',
+            \ 'S'  : 'S·Line',
+            \ '^S' : 'S·Block',
+            \ 'i'  : 'Insert',
+            \ 'R'  : 'Replace',
+            \ 'Rv' : 'V·Replace',
+            \ 'c'  : 'Command',
+            \ 'cv' : 'Vim Ex',
+            \ 'ce' : 'Ex',
+            \ 'r'  : 'Prompt',
+            \ 'rm' : 'More',
+            \ 'r?' : 'Confirm',
+            \ '!'  : 'Shell',
+            \ 't'  : 'Terminal'
+            \}
+
+set laststatus=2
+set noshowmode
+set statusline=
+set statusline+=%0*\ %n\                                 " Buffer number
+set statusline+=%1*\ %<%F%m%r%h%w\                       " File path, modified, readonly, helpfile, preview
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-set statusline+=%=        " Switch to the right side
-set statusline+=%l        " Current line
-set statusline+=/         " Separator
-set statusline+=%L        " Total lines
+set statusline+=%3*│                                     " Separator
+set statusline+=%2*\ %Y\                                 " FileType
+set statusline+=%3*│                                     " Separator
+set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
+set statusline+=\ (%{&ff})
+set statusline+=%=                                          " Switch to the right side
+set statusline+=%2*\ col:\ %02v\                            " Colomn number
+set statusline+=%3*│                                        " Separator
+set statusline+=%1*\ ln:\ %02l/%L\ (%3p%%)\                 " Line number / total lines, percentage of document
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\     " The current mode
 set statusline+=%*
 
+" History size
 if &history < 1000
   set history=1000
 endif
 
+" Linters and spellcheckers
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
 let g:ale_linters = {'svelte': ['stylelint', 'eslint']}
 
