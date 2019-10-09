@@ -23,18 +23,13 @@ TMPFILE=$(mktemp); tac "${HISTFILE}" | sed -e 's/[[:space:]]*$//' | awk '!x[$0]+
 # Python with pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 
-# Golang
-export GOROOT=$HOME/.go
-export GOPATH="$GOROOT/packages"
-
-
 ################################################################################
 # Exports
 
 #OSTYPE=`uname -o`
 export VISUAL="vim"
-export PATH="$PYENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
-# setting for building python under pyenv as framework under macosx 
+export PATH="$PYENV_ROOT/bin:/usr/local/go/bin:$PATH"
+# setting for building python under pyenv as framework under macosx
 #export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
 # Pyenv initialisation sholuld be done after setting $PATH
@@ -71,8 +66,8 @@ export C_GRAY='\e[0;30m'
 export C_L_GRAY='\e[0;37m'
 
 ################################################################################
-# Aliases 
-alias a=alias 
+# Aliases
+alias a=alias
 a ls='ls -G --color=yes'
 a stmpdat='date +%Y%m%d'
 a stmpdatime='date +%Y%m%d%H%M'
@@ -124,7 +119,7 @@ hosto () {
     for arg ;do
         start_cmd="$start_cmd | grep $arg "
     done
-        
+
     eval "$start_cmd" | awk -F ',' '{print $1}'
 
 }
