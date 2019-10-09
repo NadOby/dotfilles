@@ -10,8 +10,11 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Active plugins
+" Active plugins for
 call plug#begin('~/.vim/plugged')
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'JuliaLang/julia-vim'
 Plug 'burner/vim-svelte'
 Plug 'derekwyatt/vim-scala'
@@ -19,12 +22,12 @@ Plug 'fatih/vim-go'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-syntastic/syntastic'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'wsdjeg/FlyGrep.vim'
+Plug 'ycm-core/YouCompleteMe'
 " Plug 'elixir-lang/vim-elixir'
 " Plug 'jelera/vim-javascript-syntax'
-" Plugin 'Valloric/YouCompleteMe'
+" Plug 'vim-syntastic/syntastic'
 " Plugin 'davidhalter/jedi-vim'
 " Plugin 'raichoo/purescript-vim'
 call plug#end()
@@ -94,7 +97,7 @@ set statusline+=%2*\ col:\ %02v\                            " Colomn number
 set statusline+=%3*│                                        " Separator
 set statusline+=%1*\ ln:\ %02l/%L\ (%3p%%)\                 " Line number / total lines, percentage of document
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\     " The current mode
 set statusline+=%*
 
@@ -103,15 +106,26 @@ if &history < 1000
   set history=1000
 endif
 
-" Linters and spellcheckers
+" Linters and spellcheckers (ale)
+" fix files on save
+let g:ale_fix_on_save = 1
+" lint after 1000ms after changes are made both on insert mode and normal mode
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_delay = 1000
+" use nice symbols for errors and warnings
+" let g:ale_sign_error = '✗\ '
+" let g:ale_sign_warning = '⚠\ '
+" fixer configurations
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+" svelte configurations
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
 let g:ale_linters = {'svelte': ['stylelint', 'eslint']}
-
-let g:syntastic_sh_shellcheck_args="-x"
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" Syntactic
+" let g:syntastic_sh_shellcheck_args="-x"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 " vim: set ft=vim :
